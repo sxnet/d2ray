@@ -42,7 +42,7 @@ class d2args:
         lines = stdout.split("\n")
         if len(lines) < 2:
             raise Exception(f"Unknown Xray output format:\n\"{stdout}\"\n")
-        
+
         priv_key_hdr = "Private key: "
         pub_key_hdr = "Public key: "
         for line in lines:
@@ -90,7 +90,7 @@ class d2args:
                f"Public Key: {self.public_key}"
         )
         return ret
-    
+
     def get_shareable_links(self) -> dict[str, str]:
         ret = {}
         for user in self.users:
@@ -127,7 +127,7 @@ def build_users_json(users: list[str]) -> str:
 def build_jinja_dict(args : d2args) -> dict[str, str]:
     jinja_dict : dict[str,str] = dict()
     jinja_dict["PORT"] = str(args.port)
-    
+
     jinja_dict["TARGET_HOST"] = args.target_host
     jinja_dict["TARGET_PORT"] = str(args.target_port)
     jinja_dict["TARGET_SNI"] = build_target_snis(args.target_sni)
@@ -153,7 +153,7 @@ def main():
 
     print(f"Generating shareable links...", flush=True)
     links = args.get_shareable_links()
-    
+
     for user, link in links.items():
         dir = QR_DIR.joinpath(user)
         os.makedirs(str(dir), exist_ok=True)
